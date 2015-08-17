@@ -1,0 +1,59 @@
+general {
+        output_format = "i3bar"
+	colors = true
+        interval = 5
+}
+
+order += "run_watch VPN"
+order += "run_watch Privoxy"
+order += "ethernet enp0s25"
+order += "wireless wlp3s0"
+order += "battery 0"
+order += "battery 1"
+order += "tztime local"
+
+run_watch VPN {
+        pidfile = "/var/run/openvpn.pid"
+}
+
+run_watch Privoxy {
+	pidfile = "/var/run/privoxy.pid"
+}
+
+run_watch nftables {
+	format = ""
+}
+
+ethernet enp0s25 {
+ 	format_up = "E: %speed"
+	format_down = "E: down"
+}
+
+wireless wlp3s0 {
+        format_up = "W: (%essid, %bitrate)"
+        format_down = "W: down"
+}
+
+battery 0 {
+        format = "Bat0: %percentage"
+	format_down = "No battery"
+        path = "/sys/class/power_supply/BAT0/uevent"
+	status_full = "Bat0: FULL"
+	threshold_type = "percentage"
+        low_threshold = "15"
+	color_good = "#00FF00"
+}
+
+battery 1 {
+        format = "Bat1: %percentage"
+	format_down = "No battery"
+        path = "/sys/class/power_supply/BAT1/uevent"
+	status_full = "Bat0: FULL"
+	threshold_type = "percentage"
+        low_threshold = "15"
+	color_good = "#00FF00"
+}
+
+tztime local {
+        format = "%d/%m/%Y %H:%M"
+}
